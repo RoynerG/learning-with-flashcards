@@ -3,45 +3,81 @@ const cardData = [
     image:
       "https://i.pinimg.com/736x/f5/11/bd/f511bd2092201c6851dd9b543f0f4b48.jpg",
     correctAnswer: "Fireman",
-    complement: "Your meaning in spanish is bombero",
+    complement: " Its meaning in spanish is bombero",
     options: ["Doctor", "Nurse", "Teacher", "Fireman"],
   },
   {
     image:
       "https://i.pinimg.com/736x/97/cb/c4/97cbc4aad0a029bb24e92de46ca79f7b.jpg",
     correctAnswer: "Park",
-    complement: "Your meaning in spanish is Parque",
+    complement: " Its meaning in spanish is Parque",
     options: ["Park", "Bank", "School", "University"],
   },
   {
     image:
       "https://i.pinimg.com/736x/4e/b7/78/4eb7781ccfc2ae6386c8097e8de87562.jpg",
     correctAnswer: "Ugly",
-    complement: "Your meaning in spanish is Feo/a",
+    complement: " Its meaning in spanish is Feo/a",
     options: ["Ugly", "Crazy", "Happy", "Sad"],
   },
   {
     image:
       "https://i.pinimg.com/736x/15/78/da/1578dafd521dcacb8cd3c6a82811de3b.jpg",
     correctAnswer: "Bone",
-    complement: "Your meaning in spanish is Huesos",
+    complement: " Its meaning in spanish is Huesos",
     options: ["Hand", "Bone", "Nose", "Leg"],
   },
   {
     image:
       "https://i.pinimg.com/736x/d2/93/9d/d2939d2abdec9e54eece670d90760a46.jpg",
     correctAnswer: "American Football",
-    complement: "Your meaning in spanish is Fútbol americano",
+    complement: " Its meaning in spanish is Fútbol Americano",
     options: ["Soccer", "American Football", "Baseball", "Hockey"],
+  },
+  {
+    image:
+      "https://i.pinimg.com/736x/7f/bf/c5/7fbfc54b2dd2061a2f2523b1e8860387.jpg",
+    correctAnswer: "Cook",
+    complement: " Its meaning in spanish is Cocinar",
+    options: ["Go", "Cook", "Walk", "Drive"],
+  },
+  {
+    image:
+      "https://i.pinimg.com/736x/02/ef/b8/02efb8b22d1563a466be81bdb3514cfa.jpg",
+    correctAnswer: "Lonely",
+    complement: " Its meaning in spanish is Solitario/a",
+    options: ["Happy", "Honey", "Lonely", "Beautiful"],
+  },
+  {
+    image:
+      "https://i.pinimg.com/736x/a3/a3/81/a3a38155e33559f47939b2a7eee5b485.jpg",
+    correctAnswer: "Hand",
+    complement: " Its meaning in spanish is Mano",
+    options: ["Hand", "Bone", "Nose", "Leg"],
+  },
+  {
+    image:
+      "https://i.pinimg.com/736x/51/a6/54/51a654efd6b0976a4ca89396b8456bce.jpg",
+    correctAnswer: "University",
+    complement: " Its meaning in spanish is Universidad",
+    options: ["House", "Police Station", "Prision", "University"],
+  },
+  {
+    image:
+      "https://i.pinimg.com/736x/35/97/7e/35977eb075496fbacc49f629cc42e11d.jpg",
+    correctAnswer: "Nurse",
+    complement: " Its meaning in spanish is Enfermera",
+    options: ["Doctor", "Nurse", "Teacher", "Fireman"],
   },
 ];
 
 let currentCardIndex = 0;
 let score = 0;
+let corrects = 0;
+let incorrects = 0;
 
 const imageElement = document.getElementById("card-image");
 const optionsContainer = document.getElementById("options-container");
-const nextButton = document.getElementById("next-button");
 
 function loadCard(cardIndex) {
   if (cardIndex >= cardData.length) {
@@ -67,10 +103,22 @@ function loadCard(cardIndex) {
 function checkAnswer(selectedAnswer, correctAnswer) {
   const card = cardData[currentCardIndex];
   if (selectedAnswer === correctAnswer) {
-    alert(`¡Correct! ${correctAnswer} ${card.complement || ""}`);
+    Swal.fire({
+      title: "Correct Answer! 😊",
+      text: `${correctAnswer} ${card.complement}`,
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
     score += 10;
+    corrects++;
   } else {
-    alert(`Incorrect. The correct answer is: ${correctAnswer}`);
+    Swal.fire({
+      title: "Incorrect! 😭",
+      text: `The correct answer is: ${correctAnswer}`,
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+    incorrects++;
   }
   nextCard();
 }
@@ -85,12 +133,18 @@ function nextCard() {
 }
 
 function endGame() {
-  alert(`Game over! Your final score is: ${score}`);
+  Swal.fire({
+    title: "Game over! 🦾",
+    text: `Your final score is: ${score}`,
+    html: `<p>The total number of correct answers is <strong>${corrects}</strong></p><br><p>The total number of incorrect answers is <strong>${incorrects}</strong></p>`,
+    icon: "info",
+    confirmButtonText: "Cerrar",
+  });
   currentCardIndex = 0;
   score = 0;
   loadCard(currentCardIndex);
 }
 
-nextButton.addEventListener("click", nextCard);
-
 loadCard(currentCardIndex);
+
+info;
