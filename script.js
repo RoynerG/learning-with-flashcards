@@ -133,18 +133,26 @@ function nextCard() {
 }
 
 function endGame() {
+  // Restablece los valores antes de mostrar la alerta
+  const finalCorrects = corrects;
+  const finalIncorrects = incorrects;
+  const finalScore = score;
+
+  corrects = 0;
+  incorrects = 0;
+  score = 0;
+  currentCardIndex = 0;
+
   Swal.fire({
     title: "Game over! 🦾",
-    text: `Your final score is: ${score}`,
-    html: `<p>The total number of correct answers is <strong>${corrects}</strong></p><br><p>The total number of incorrect answers is <strong>${incorrects}</strong></p>`,
+    html: `<p>Your final score is: <strong>${finalScore}</strong></p>
+           <p>The total number of correct answers is <strong>${finalCorrects}</strong></p>
+           <p>The total number of incorrect answers is <strong>${finalIncorrects}</strong></p>`,
     icon: "info",
     confirmButtonText: "Cerrar",
+  }).then(() => {
+    loadCard(currentCardIndex);
   });
-  currentCardIndex = 0;
-  score = 0;
-  loadCard(currentCardIndex);
 }
 
 loadCard(currentCardIndex);
-
-info;
